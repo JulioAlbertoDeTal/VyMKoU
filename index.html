@@ -154,7 +154,10 @@ p{margin:0 0 1rem}
 .cifras li{padding:.9rem .9rem 1rem;background:var(--noche-hondo);box-shadow:inset 0 0 0 3px var(--morado),0 0 0 3px #000,0 6px 0 #000}
 .cifras b{display:block;font-family:var(--pixel);font-weight:700;font-size:clamp(2rem,9vw,2.6rem);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
 .cifras span{display:block;margin-top:.35rem;font-size:.95rem;color:var(--texto-suave);line-height:1.3}
-.trailer{display:flex;align-items:center;gap:1rem;margin:2rem 0 0;padding:1rem;background:#0b0716;box-shadow:inset 0 0 0 3px #2a2147,0 0 0 3px #000}
+.titulo-video{margin:2.25rem 0 .9rem;color:var(--acento)}
+.video{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;background:#000;box-shadow:0 0 0 3px #000,0 0 0 6px var(--morado),0 0 0 9px #000,0 12px 0 #000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.trailer{display:flex;align-items:center;gap:1rem;margin:1.75rem 0 0;padding:1rem;background:#0b0716;box-shadow:inset 0 0 0 3px #2a2147,0 0 0 3px #000}
 .trailer .play{flex:none;width:3.25rem;height:3.25rem;display:grid;place-items:center;background:var(--sangre);box-shadow:inset 0 -5px 0 var(--sangre-sombra),0 0 0 3px #000}
 .trailer .play::before{content:"";width:0;height:0;border-left:15px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
 .trailer p{margin:0}
@@ -450,10 +453,16 @@ p{margin:0 0 1rem}
       <li><b>1</b><span>ganador</span></li>
     </ul>
     <p><strong>No vienes a construir la casa de tus sueños.</strong> Vienes a sumar puntos y a fastidiar al resto: matar, robar, asaltar bases aunque su dueño no esté, poner trampas y traicionar. Todo vale dentro de las reglas de esta guía.</p>
-    <div class="trailer" data-trailer>
-      <span class="play" aria-hidden="true"></span>
-      <p><b>El tráiler</b><span class="suave" data-trailer-texto>Muy pronto.</span></p>
+    <h3 class="titulo-video">El tráiler</h3>
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/NM8zm4Sdzj0" title="Tráiler de Vírgenes y Mazmorras" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+    <a class="trailer" href="https://youtu.be/NM8zm4Sdzj0" target="_blank" rel="noopener">
+      <span class="play" aria-hidden="true"></span>
+      <p><b>Verlo en YouTube</b><span class="suave">Se abre en otra pestaña.</span></p>
+    </a>
   </section>
 
   <section class="capitulo morado" id="calendario" data-nombre="El calendario">
@@ -785,9 +794,6 @@ p{margin:0 0 1rem}
 
 <script>
 (function(){
-  // Enlace del tráiler: pon aquí la dirección cuando esté subido.
-  var TRAILER_URL = "";
-
   var root = document.documentElement;
   root.classList.add('js');
   var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -799,17 +805,6 @@ p{margin:0 0 1rem}
     if (quieto || !('IntersectionObserver' in window)) { fn(); return; }
     var io = new IntersectionObserver(function(e){ if (e[0].isIntersecting){ fn(); io.disconnect(); } }, {threshold: umbral || .4});
     io.observe(el);
-  }
-
-  // ---------- Tráiler ----------
-  var tr = document.querySelector('[data-trailer]');
-  if (TRAILER_URL && tr){
-    var a = document.createElement('a');
-    a.href = TRAILER_URL; a.target = '_blank'; a.rel = 'noopener';
-    a.className = 'trailer';
-    a.innerHTML = tr.innerHTML;
-    a.querySelector('[data-trailer-texto]').textContent = 'Míralo aquí';
-    tr.replaceWith(a);
   }
 
   // ---------- Índice ----------
